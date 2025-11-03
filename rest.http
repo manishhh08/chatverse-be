@@ -1,0 +1,21 @@
+@apiUrl= http://localhost:4002/api/v1
+
+###
+POST {{apiUrl}}/auth
+Content-Type: application/json
+
+{
+  "username":"manishuser",
+  "email": "manishuser@gmail.com", 
+  "password": "1234"
+
+}
+
+###
+POST {{apiUrl}}/auth/login
+Content-Type: application/json
+
+{
+  "email": "manishuser@gmail.com", 
+  "password": "1234"
+}

@@ -2,6 +2,7 @@ import express from "express";
 import cors from "cors";
 import { mongooseConnect } from "./src/config/mongoConfig.js";
 import config from "./src/config/config.js";
+import authRouter from "./src/routes/authRouter.js";
 
 const app = express();
 app.use(cors());
@@ -11,6 +12,9 @@ app.use(express.urlencoded({ extended: true }));
 app.get("/", (req, res) => {
   res.send("API endpoint for Chatverse application is running");
 });
+
+// auth router
+app.use("/api/v1/auth", authRouter);
 
 mongooseConnect()
   .then(() => {
