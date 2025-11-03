@@ -5,8 +5,8 @@ POST {{apiUrl}}/auth
 Content-Type: application/json
 
 {
-  "username":"manishuser",
-  "email": "manishuser@gmail.com", 
+  "username":"tester",
+  "email": "tester@gmail.com", 
   "password": "1234"
 
 }
@@ -16,6 +16,37 @@ POST {{apiUrl}}/auth/login
 Content-Type: application/json
 
 {
-  "email": "manishuser@gmail.com", 
+  "email": "tester@gmail.com", 
   "password": "1234"
+}
+
+###
+POST {{apiUrl}}/chats
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3RlckBnbWFpbC5jb20iLCJpYXQiOjE3NjIxNzM1MTksImV4cCI6MTc2MjI1OTkxOX0.WdUomunqUYYwjtv-U6UZco_JlmJ2RD3Q-LQU_Tnc5PM
+
+{
+  "name":"Chat with tester1",
+  "members":["69089cc040832bad0145d4fa"],
+  "isGroup":false
+}
+
+
+###
+POST {{apiUrl}}/messages
+Content-Type: application/json
+Authorization:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3RlckBnbWFpbC5jb20iLCJpYXQiOjE3NjIxNzM1MTksImV4cCI6MTc2MjI1OTkxOX0.WdUomunqUYYwjtv-U6UZco_JlmJ2RD3Q-LQU_Tnc5PM
+
+{
+  "chatId":"6908aabccfdc26984250923b",
+  "text":"had lunch?"
+}
+
+###
+GET {{apiUrl}}/messages/6908aabccfdc26984250923b
+Content-Type: application/json
+Authorization:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3RlckBnbWFpbC5jb20iLCJpYXQiOjE3NjIxNzQ0NjMsImV4cCI6MTc2MjI2MDg2M30.ah3v09yP0Z-kTJPx6yTHewwta0VZnVtpJD3DQBc-Wd4
+
+{
+
 }

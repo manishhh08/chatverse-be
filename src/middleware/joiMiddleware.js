@@ -28,3 +28,20 @@ export const createUserValidation = (req, res, next) => {
 
   joiValidator(createUserSchema, req, res, next);
 };
+
+export const createChatValidation = (req, res, next) => {
+  let createChatSchema = Joi.object({
+    name: Joi.string().optional(),
+    members: Joi.array().items(Joi.string().required()).min(1).required(),
+    isGroup: Joi.boolean().required(),
+  });
+  joiValidator(createChatSchema, req, res, next);
+};
+
+export const getChatsSchema = (req, res, next) => {
+  let getChatSchema = Joi.object({
+    limit: Joi.number().integer().min(1).optional(),
+    page: Joi.number().integer().min(1).optional(),
+  });
+  joiValidator(getChatSchema, req, res, next);
+};

@@ -4,6 +4,19 @@ import { createAccessToken, createRefreshToken } from "../utils/jwt.js";
 
 export const createNewUser = async (req, res) => {
   const { username, email, password } = req.body;
+  const existingUser = await findByFilter({
+    $or: [{ email }, { username }],
+  });
+
+  if (existingUser) {
+    return res.status(400).json({
+      status: "error",
+      message:
+        existingUser.email === email
+          ? "Email is already registered"
+          : "Username is already taken",
+    });
+  }
   const hashedPassword = encodeFunction(password);
   try {
     const user = await newUser({ email, username, password: hashedPassword });
@@ -18,6 +31,14 @@ export const createNewUser = async (req, res) => {
         .json({ status: "error", message: "Error creating user" });
     }
   } catch (error) {
+    console.log("error here:", error);
+    if (error.code === 11000) {
+      const duplicateField = Object.keys(error.keyPattern)[0];
+      return res.status(400).json({
+        status: "error",
+        message: `${duplicateField} already exists`,
+      });
+    }
     return res
       .status(500)
       .json({ status: "error", message: "Internal server error" });
