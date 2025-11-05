@@ -21,6 +21,8 @@ export const loginValidation = (req, res, next) => {
 
 export const createUserValidation = (req, res, next) => {
   let createUserSchema = Joi.object({
+    firstName: Joi.string().required(),
+    lastName: Joi.string().required(),
     username: Joi.string().required(),
     email: Joi.string().email().required(),
     password: Joi.string().required(),

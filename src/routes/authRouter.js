@@ -15,7 +15,7 @@ import {
 
 const router = express.Router();
 
-router.post("/", createUserValidation, createNewUser);
+router.post("/register", createUserValidation, createNewUser);
 router.post("/login", loginValidation, loginUser);
 router.get("/refresh-token", refreshMiddleware, refreshToken);
 export default router;

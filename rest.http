@@ -5,10 +5,11 @@ POST {{apiUrl}}/auth
 Content-Type: application/json
 
 {
-  "username":"tester",
-  "email": "tester@gmail.com", 
+  "firstName":"User",
+  "lastName":"Users",
+  "username":"user",
+  "email": "user@gmail.com", 
   "password": "1234"
-
 }
 
 ###
@@ -16,18 +17,18 @@ POST {{apiUrl}}/auth/login
 Content-Type: application/json
 
 {
-  "email": "tester@gmail.com", 
+  "email": "user@gmail.com", 
   "password": "1234"
 }
 
 ###
 POST {{apiUrl}}/chats
 Content-Type: application/json
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3RlckBnbWFpbC5jb20iLCJpYXQiOjE3NjIxNzM1MTksImV4cCI6MTc2MjI1OTkxOX0.WdUomunqUYYwjtv-U6UZco_JlmJ2RD3Q-LQU_Tnc5PM
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3RlcjFAZ21haWwuY29tIiwiaWF0IjoxNzYyMzI0MTk3LCJleHAiOjE3NjI0MTA1OTd9.fpC_cUgCk8K58JTBWXF9dAuxzJP-FtJv9BI7s-XvZO4
 
 {
-  "name":"Chat with tester1",
-  "members":["69089cc040832bad0145d4fa"],
+  "name":"Chat with tester main",
+  "members":["69089cb440832bad0145d4f6"],
   "isGroup":false
 }
 
@@ -35,17 +36,17 @@ Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3RlckBnbWFp
 ###
 POST {{apiUrl}}/messages
 Content-Type: application/json
-Authorization:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3RlckBnbWFpbC5jb20iLCJpYXQiOjE3NjIxNzM1MTksImV4cCI6MTc2MjI1OTkxOX0.WdUomunqUYYwjtv-U6UZco_JlmJ2RD3Q-LQU_Tnc5PM
+Authorization:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3RlcjFAZ21haWwuY29tIiwiaWF0IjoxNzYyMjA5Njg1LCJleHAiOjE3NjIyOTYwODV9.sGkcYr1l9MJwYgFYIouL6QjmDQr00L4ziIQkkWoS11Q
 
 {
   "chatId":"6908aabccfdc26984250923b",
-  "text":"had lunch?"
+  "text":"nice making friends with you"
 }
 
 ###
 GET {{apiUrl}}/messages/6908aabccfdc26984250923b
 Content-Type: application/json
-Authorization:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3RlckBnbWFpbC5jb20iLCJpYXQiOjE3NjIxNzQ0NjMsImV4cCI6MTc2MjI2MDg2M30.ah3v09yP0Z-kTJPx6yTHewwta0VZnVtpJD3DQBc-Wd4
+Authorization:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3RlcjFAZ21haWwuY29tIiwiaWF0IjoxNzYyMjA5Njg1LCJleHAiOjE3NjIyOTYwODV9.sGkcYr1l9MJwYgFYIouL6QjmDQr00L4ziIQkkWoS11Q
 
 {
 

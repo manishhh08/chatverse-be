@@ -1,12 +1,21 @@
 import express from "express";
 import cors from "cors";
+import { createServer } from "http";
+import { Server } from "socket.io";
 import { mongooseConnect } from "./src/config/mongoConfig.js";
 import config from "./src/config/config.js";
 import authRouter from "./src/routes/authRouter.js";
 import chatRouter from "./src/routes/chatRouter.js";
 import messageRouter from "./src/routes/messageRouter.js";
+import userRouter from "./src/routes/userRouter.js";
 
 const app = express();
+
+const server = createServer(app);
+
+const io = new Server(server, {
+  cors: { origin: "*" },
+});
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -18,15 +27,39 @@ app.get("/", (req, res) => {
 // auth router
 app.use("/api/v1/auth", authRouter);
 
+// user router
+app.use("/api/v1/user", userRouter);
+
 // chat router
 app.use("/api/v1/chats", chatRouter);
 
 //message router
 app.use("/api/v1/messages", messageRouter);
 
+//socketio connection here
+io.on("connection", (socket) => {
+  console.log("🟢 User connected:", socket.id);
+
+  socket.on("join_chat", (chatId) => {
+    socket.join(chatId);
+    console.log(`User joined chat:${chatId}`);
+  });
+
+  socket.on("send_message", (messageData) => {
+    io.to(messageData.chatId).emit("receive_message", messageData);
+  });
+
+  socket.on("disconnect", () => {
+    console.log("🔴 User disconnected:", socket.id);
+  });
+  socket.on("connect_error", (err) => {
+    console.error("Socket connection error:", err.message);
+  });
+});
+
 mongooseConnect()
   .then(() => {
-    app.listen(config.port, () => {
+    server.listen(config.port, () => {
       console.log(`✅ Server started on port ${config.port}`);
     });
   })
