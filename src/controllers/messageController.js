@@ -3,37 +3,26 @@ import {
   getMessagesByChat,
   newMessage,
 } from "../models/message/messageModel.js";
+import { getIO } from "../utils/socketSetup.js";
 
 export const sendMessage = async (req, res) => {
   try {
     const { chatId, text } = req.body;
     const senderId = req.user._id;
 
-    if (!chatId || !text) {
-      return res.status(400).json({
-        status: "error",
-        message: "chatId and text are required",
-      });
-    }
-
     const message = await newMessage({ chatId, senderId, text });
+    await message.populate("senderId", "username email");
 
     const chat = await findChatById(chatId);
-    if (!chat) {
-      return res.status(404).json({
-        status: "error",
-        message: "Chat not found",
-      });
-    }
-
     chat.messages.push(message._id);
     await chat.save();
 
-    await message.populate("senderId", "username email");
+    // Emit to all connected clients in the chat room
+    getIO().to(chatId).emit("receive_message", message);
 
     res.status(201).json({ status: "success", message });
   } catch (err) {
-    console.error("Show me the error:", err);
+    console.error(err);
     res.status(500).json({ status: "error", message: "Server error" });
   }
 };

@@ -1,21 +1,19 @@
 import express from "express";
 import cors from "cors";
 import { createServer } from "http";
-import { Server } from "socket.io";
 import { mongooseConnect } from "./src/config/mongoConfig.js";
 import config from "./src/config/config.js";
 import authRouter from "./src/routes/authRouter.js";
 import chatRouter from "./src/routes/chatRouter.js";
 import messageRouter from "./src/routes/messageRouter.js";
 import userRouter from "./src/routes/userRouter.js";
+import { initSocket } from "./src/utils/socketSetup.js";
 
 const app = express();
 
 const server = createServer(app);
 
-const io = new Server(server, {
-  cors: { origin: "*" },
-});
+const io = initSocket(server);
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
