@@ -6,6 +6,7 @@ export const authMiddleware = async (req, res, next) => {
     const accessToken = req.headers.authorization;
     let decoded = decodeAccessToken(accessToken);
     console.log("Return value", decoded);
+
     let user = await findByFilter({ email: decoded.email });
 
     if (user) {
