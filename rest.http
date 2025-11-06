@@ -17,18 +17,18 @@ POST {{apiUrl}}/auth/login
 Content-Type: application/json
 
 {
-  "email": "user@gmail.com", 
+  "email": "tester@gmail.com", 
   "password": "1234"
 }
 
 ###
 POST {{apiUrl}}/chats
 Content-Type: application/json
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3RlcjFAZ21haWwuY29tIiwiaWF0IjoxNzYyMzI0MTk3LCJleHAiOjE3NjI0MTA1OTd9.fpC_cUgCk8K58JTBWXF9dAuxzJP-FtJv9BI7s-XvZO4
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3RlckBnbWFpbC5jb20iLCJpYXQiOjE3NjIzOTYzODQsImV4cCI6MTc2MjQ4Mjc4NH0.oLSH9C4nS3YVh6Jt-5PCmfMmf6VkxNOseEt47KTy7yg
 
 {
-  "name":"Chat with tester main",
-  "members":["69089cb440832bad0145d4f6"],
+  "name":"Chat with user main",
+  "members":["690b0659c34deea4270536fb"],
   "isGroup":false
 }
 
@@ -36,11 +36,11 @@ Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3RlcjFAZ21h
 ###
 POST {{apiUrl}}/messages
 Content-Type: application/json
-Authorization:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3RlcjFAZ21haWwuY29tIiwiaWF0IjoxNzYyMjA5Njg1LCJleHAiOjE3NjIyOTYwODV9.sGkcYr1l9MJwYgFYIouL6QjmDQr00L4ziIQkkWoS11Q
+Authorization:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3RlckBnbWFpbC5jb20iLCJpYXQiOjE3NjIzOTYzODQsImV4cCI6MTc2MjQ4Mjc4NH0.oLSH9C4nS3YVh6Jt-5PCmfMmf6VkxNOseEt47KTy7yg
 
 {
-  "chatId":"6908aabccfdc26984250923b",
-  "text":"nice making friends with you"
+  "chatId":"690c090742ab2019cee06399",
+  "text":"heyy"
 }
 
 ###

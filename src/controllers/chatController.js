@@ -8,12 +8,9 @@ import {
 export const createChat = async (req, res) => {
   try {
     const { members, name, isGroup } = req.body;
-
     const userId = req.user._id;
 
-    if (!members.includes(userId.toString())) {
-      members.push(userId.toString());
-    }
+    if (!members.includes(userId.toString())) members.push(userId.toString());
 
     if (!isGroup && members.length === 2) {
       const existingChat = await findChatByFilter({
@@ -22,10 +19,10 @@ export const createChat = async (req, res) => {
       });
 
       if (existingChat) {
-        return res.status(400).json({
-          status: "error",
-          message: "One-on-one chat already exists between these users",
+        return res.status(200).json({
+          status: "success",
           chat: existingChat,
+          message: "One-on-one chat already exists",
         });
       }
     }
