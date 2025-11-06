@@ -11,7 +11,7 @@ export const sendMessage = async (req, res) => {
     const senderId = req.user._id;
 
     const message = await newMessage({ chatId, senderId, text });
-    await message.populate("senderId", "username email");
+    await message.populate("senderId", "username email firstName lastName");
 
     const chat = await findChatById(chatId);
     chat.messages.push(message._id);
@@ -39,12 +39,12 @@ export const getMessages = async (req, res) => {
 
     const messages = await getMessagesByChat({ chatId }).populate(
       "senderId",
-      "username email"
+      "username email firstName lastName"
     );
 
     res.status(200).json({ status: "success", messages });
   } catch (err) {
-    console.error("Error fetching messsages:", err);
+    console.error("Error fetching messages:", err);
     res.status(500).json({ status: "error", message: "Server error" });
   }
 };
