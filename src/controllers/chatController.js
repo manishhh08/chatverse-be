@@ -33,15 +33,10 @@ export const createChat = async (req, res) => {
     }
 
     const chat = await newChat({ members, name, isGroup });
-    const populatedChat = await chat
-      .populate("members", "username email firstName lastName")
-      .populate({
-        path: "messages",
-        populate: {
-          path: "senderId",
-          select: "username email firstName lastName",
-        },
-      });
+    const populatedChat = await chat.populate(
+      "members",
+      "username email firstName lastName"
+    );
 
     res.status(201).json({ status: "success", chat: populatedChat });
   } catch (err) {
