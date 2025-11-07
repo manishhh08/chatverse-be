@@ -15,6 +15,8 @@ export const sendMessage = async (req, res) => {
 
     const chat = await findChatById(chatId);
     chat.messages.push(message._id);
+
+    chat.updatedAt = new Date();
     await chat.save();
 
     // Emit to all connected clients in the chat room

@@ -3,6 +3,7 @@ import {
   getUserChats,
   newChat,
 } from "../models/chats/chatModel.js";
+import { updateById } from "../models/users/userModel.js";
 
 // Create chat
 export const createChat = async (req, res) => {
@@ -56,7 +57,8 @@ export const getChats = async (req, res) => {
           path: "senderId",
           select: "username email firstName lastName",
         },
-      });
+      })
+      .sort({ updatedAt: -1 });
     res.json({ status: "success", chats });
   } catch (err) {
     console.error(err);
