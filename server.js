@@ -43,6 +43,11 @@ io.on("connection", (socket) => {
     console.log(`User joined chat:${chatId}`);
   });
 
+  socket.on("leave_chat", (chatId) => {
+    socket.leave(chatId);
+    console.log(`User left chat:${chatId}`);
+  });
+
   socket.on("send_message", (messageData) => {
     io.to(messageData.chatId).emit("receive_message", messageData);
   });
