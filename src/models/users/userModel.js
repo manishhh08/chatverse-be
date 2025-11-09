@@ -4,9 +4,14 @@ export const newUser = (userObject) => {
   return User.insertOne(userObject);
 };
 
-export const getAllUsers = () => {
-  return User.find();
+export const getAllUsers = (currentUserId) => {
+  return User.find({
+    _id: { $ne: currentUserId },
+    firstName: { $exists: true, $ne: "" },
+    lastName: { $exists: true, $ne: "" },
+  }).select("firstName lastName email");
 };
+
 export const findById = (userId) => {
   return User.findById(userId);
 };

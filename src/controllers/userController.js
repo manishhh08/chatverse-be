@@ -25,7 +25,9 @@ export const getUserDetail = (req, res) => {
 
 export const getAllUser = async (req, res) => {
   try {
-    const users = await getAllUsers();
+    const currentUserId = req.user._id;
+
+    const users = await getAllUsers(currentUserId);
     res.json({ status: "success", users });
   } catch (err) {
     console.error(err);
