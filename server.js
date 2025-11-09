@@ -48,6 +48,14 @@ io.on("connection", (socket) => {
     console.log(`User left chat:${chatId}`);
   });
 
+  socket.on("typing", ({ chatId }) => {
+    socket.to(chatId).emit("typing", { userId: socket.userId });
+  });
+
+  socket.on("stop_typing", ({ chatId }) => {
+    socket.to(chatId).emit("stop_typing", { userId: socket.userId });
+  });
+
   socket.on("send_message", (messageData) => {
     io.to(messageData.chatId).emit("receive_message", messageData);
   });
