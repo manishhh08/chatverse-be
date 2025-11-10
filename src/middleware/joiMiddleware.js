@@ -25,6 +25,7 @@ export const createUserValidation = (req, res, next) => {
     lastName: Joi.string().required(),
     username: Joi.string().required(),
     email: Joi.string().email().required(),
+    phone: Joi.string(),
     password: Joi.string().required(),
   });
 

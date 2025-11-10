@@ -3,7 +3,7 @@ import { decodeFunction, encodeFunction } from "../utils/encodeHelper.js";
 import { createAccessToken, createRefreshToken } from "../utils/jwt.js";
 
 export const createNewUser = async (req, res) => {
-  const { firstName, lastName, username, email, password } = req.body;
+  const { firstName, lastName, username, email, password, phone } = req.body;
   const existingUser = await findByFilter({
     $or: [{ email }, { username }],
   });
@@ -25,6 +25,7 @@ export const createNewUser = async (req, res) => {
       email,
       username,
       password: hashedPassword,
+      phone,
     });
     if (user) {
       return res
