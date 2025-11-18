@@ -21,13 +21,13 @@ transporter.verify((error, success) => {
 });
 
 // Email formatter
-export const emailFormatter = (to, subject, name, link) => ({
+export const emailFormatter = (to, subject, firstName, link) => ({
   from: `"ChatVerse ⚡" <${config.nodemailer.user}>`,
   to,
   subject,
   html: `
     <div style="font-family: Arial, sans-serif; padding: 20px;">
-      <h2>Hello ${name || "User"},</h2>
+      <h2>Hello ${firstName || "User"},</h2>
       <p>Please click the link below to proceed:</p>
       <a href="${link}" style="
         background-color: #ff6b35;

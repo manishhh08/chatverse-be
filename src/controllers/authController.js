@@ -1,9 +1,28 @@
-import { findByFilter, newUser } from "../models/users/userModel.js";
+import {
+  findByFilter,
+  newUser,
+  updateById,
+} from "../models/users/userModel.js";
 import { decodeFunction, encodeFunction } from "../utils/encodeHelper.js";
 import { createAccessToken, createRefreshToken } from "../utils/jwt.js";
+import { v4 as uuidv4 } from "uuid";
 
 export const createNewUser = async (req, res) => {
   const { firstName, lastName, username, email, password, phone } = req.body;
+
+  const emailVerify = async (emailDetails) => {
+    const emailResult = await transporter.sendMail(emailDetails);
+  };
+  const randomString = uuidv4();
+
+  const verificationLink = `${config.frontend.domain}/verify?token=${randomString}&email=${email}`;
+
+  const formattedEmail = emailFormatter(
+    email,
+    "Verify your email",
+    firstName,
+    verificationLink
+  );
   const existingUser = await findByFilter({
     $or: [{ email }, { username }],
   });
@@ -18,6 +37,7 @@ export const createNewUser = async (req, res) => {
     });
   }
   const hashedPassword = encodeFunction(password);
+  await emailVerify(formattedEmail);
   try {
     const user = await newUser({
       firstName,
@@ -61,6 +81,13 @@ export const loginUser = async (req, res) => {
       let payload = {
         email: user.email,
       };
+
+      if (!user.verified) {
+        return res.status(500).json({
+          status: "error",
+          message: "Please verify your email to Login",
+        });
+      }
       let accessToken = createAccessToken(payload);
       let refreshToken = createRefreshToken(payload);
       if (result) {
@@ -111,5 +138,35 @@ export const refreshToken = (req, res) => {
     return res
       .status(500)
       .json({ status: "error", message: "Internal Server error" });
+  }
+};
+
+export const verifyCustomer = async (req, res) => {
+  try {
+    const { token, email } = req.body;
+    const user = await findByFilter({ email: email });
+    if (!user) {
+      return res
+        .status(404)
+        .json({ status: "error", message: "User not found" });
+    }
+
+    if (user.verificationToken === token) {
+      // console.log("Verification token sent by user:", token);
+      // console.log("Verification token in DB:", user.verificationToken);
+
+      const updateIsVerified = await updateById(user._id, { verified: true });
+      if (updateIsVerified)
+        return res
+          .status(200)
+          .json({ status: "success", message: "Verification complete" });
+    }
+    return res
+      .status(500)
+      .json({ status: "error", message: "Verification token did not match" });
+  } catch (error) {
+    return res
+      .status(500)
+      .json({ status: "error", message: "Internal server error" });
   }
 };
