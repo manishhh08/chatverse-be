@@ -6,6 +6,8 @@ import {
 import { decodeFunction, encodeFunction } from "../utils/encodeHelper.js";
 import { createAccessToken, createRefreshToken } from "../utils/jwt.js";
 import { v4 as uuidv4 } from "uuid";
+import config from "../config/config.js";
+import { emailFormatter, transporter } from "../config/nodemailer.js";
 
 export const createNewUser = async (req, res) => {
   const { firstName, lastName, username, email, password, phone } = req.body;
@@ -46,6 +48,7 @@ export const createNewUser = async (req, res) => {
       username,
       password: hashedPassword,
       phone,
+      verificationToken: randomString,
     });
     if (user) {
       return res
