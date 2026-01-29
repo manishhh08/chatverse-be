@@ -5,6 +5,7 @@ import {
 } from "../models/message/messageModel.js";
 import { getIO } from "../utils/socketSetup.js";
 
+//TODO: function to send images as well in messages.
 export const sendMessage = async (req, res) => {
   try {
     const { chatId, text } = req.body;
@@ -41,7 +42,7 @@ export const getMessages = async (req, res) => {
 
     const messages = await getMessagesByChat({ chatId }).populate(
       "senderId",
-      "username email firstName lastName"
+      "username email firstName lastName",
     );
 
     res.status(200).json({ status: "success", messages });
