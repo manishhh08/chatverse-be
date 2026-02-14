@@ -14,10 +14,17 @@ const messageSchema = new mongoose.Schema(
     },
     text: {
       type: String,
-      required: true,
+      trim: true,
+    },
+    mediaUrl: {
+      type: String,
+    },
+    mediaiType: {
+      type: String,
+      enum: ["image", "video", "audio", "file"],
     },
   },
-  { timestamps: true }
+  { timestamps: true },
 );
 
 export default mongoose.model("Message", messageSchema);
