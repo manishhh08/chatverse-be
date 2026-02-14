@@ -16,13 +16,19 @@ const messageSchema = new mongoose.Schema(
       type: String,
       trim: true,
     },
-    mediaUrl: {
-      type: String,
-    },
-    mediaiType: {
-      type: String,
-      enum: ["image", "video", "audio", "file"],
-    },
+    media: [
+      {
+        url: {
+          type: String,
+          required: true,
+        },
+        type: {
+          type: String,
+          enum: ["image", "video", "audio", "file"],
+          required: true,
+        },
+      },
+    ],
   },
   { timestamps: true },
 );
