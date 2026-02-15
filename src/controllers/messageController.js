@@ -11,7 +11,24 @@ export const sendMessage = async (req, res) => {
     const { chatId, text } = req.body;
     const senderId = req.user._id;
 
-    const message = await newMessage({ chatId, senderId, text });
+    let media = [];
+
+    if (req.files && req.files.length > 0) {
+      media = req.files.map((file) => {
+        let type = "file";
+
+        if (file.mimetype.startsWith("image")) type = "image";
+        else if (file.mimetype.startsWith("video")) type = "video";
+        else if (file.mimetype.startsWith("audio")) type = "audio";
+
+        return {
+          url: `/uploads/${file.filename}`,
+          type,
+        };
+      });
+    }
+
+    const message = await newMessage({ chatId, senderId, text, media });
     await message.populate("senderId", "username email firstName lastName");
 
     const chat = await findChatById(chatId);
