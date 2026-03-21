@@ -22,6 +22,11 @@ const config = {
     user: process.env.NODEMAILER_USER,
     pass: process.env.NODEMAILER_PASS,
   },
+  cloudinary: {
+    cloud_name: process.env.CLOUD_NAME,
+    cloud_key: process.env.CLOUD_KEY,
+    cloud_secret: process.env.CLOUD_SECRET,
+  },
 };
 
 export default config;
